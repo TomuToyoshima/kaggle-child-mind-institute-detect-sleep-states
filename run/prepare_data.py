@@ -16,7 +16,7 @@ SERIES_SCHEMA = {
     "enmo": pl.Float32,
 }
 
-
+#ここ改変ok
 FEATURE_NAMES = [
     "anglez",
     "enmo",
@@ -27,9 +27,11 @@ FEATURE_NAMES = [
     "month_cos",
     "minute_sin",
     "minute_cos",
+    "days_sin",
+    "days_cos",
     "anglez_sin",
-    "anglez_cos",
-]
+    "anglez_cos"
+    ]
 
 ANGLEZ_MEAN = -8.810476
 ANGLEZ_STD = 35.521877
@@ -48,7 +50,7 @@ def to_coord(x: pl.Expr, max_: int, name: str) -> list[pl.Expr]:
 def deg_to_rad(x: pl.Expr) -> pl.Expr:
     return np.pi / 180 * x
 
-
+#ここ改変ok
 def add_feature(series_df: pl.DataFrame) -> pl.DataFrame:
     series_df = (
         series_df.with_row_count("step")
@@ -56,6 +58,7 @@ def add_feature(series_df: pl.DataFrame) -> pl.DataFrame:
             *to_coord(pl.col("timestamp").dt.hour(), 24, "hour"),
             *to_coord(pl.col("timestamp").dt.month(), 12, "month"),
             *to_coord(pl.col("timestamp").dt.minute(), 60, "minute"),
+            *to_coord(pl.col("timestamp").dt.day_of_week, 7, "days"),
             pl.col("step") / pl.count("step"),
             pl.col('anglez_rad').sin().alias('anglez_sin'),
             pl.col('anglez_rad').cos().alias('anglez_cos'),
