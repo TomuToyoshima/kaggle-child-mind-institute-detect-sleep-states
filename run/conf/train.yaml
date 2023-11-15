@@ -42,7 +42,7 @@ aug:
   mixup_alpha: 0.4
   cutmix_prob: 0.0
   cutmix_alpha: 0.4
-  
+
 # post_process
 pp:
   score_th: 0.02
@@ -58,17 +58,17 @@ labels:
 features:
   - "anglez"
   - "enmo"
-  # - "step"
-  # - "month_sin"
-  # - "month_cos"
+  - "step"
+  - "month_sin"
+  - "month_cos"
   - "hour_sin"
   - "hour_cos"
   - "days_sin",
   - "days_cos",
-  # - "minute_sin"
-  # - "minute_cos"
-  # - "anglez_sin"
-  # - "anglez_cos"
+  - "minute_sin"
+  - "minute_cos"
+  - "anglez_sin"
+  - "anglez_cos"
 
 # optimizer
 optimizer:
