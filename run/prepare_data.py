@@ -58,7 +58,7 @@ def add_feature(series_df: pl.DataFrame) -> pl.DataFrame:
             *to_coord(pl.col("timestamp").dt.hour(), 24, "hour"),
             *to_coord(pl.col("timestamp").dt.month(), 12, "month"),
             *to_coord(pl.col("timestamp").dt.minute(), 60, "minute"),
-            *to_coord(pl.col("timestamp").dt.day_of_week, 7, "days"),
+            *to_coord(pl.col("timestamp").dt.weekday(), 7, "days"),
             pl.col("step") / pl.count("step"),
             pl.col('anglez_rad').sin().alias('anglez_sin'),
             pl.col('anglez_rad').cos().alias('anglez_cos'),
