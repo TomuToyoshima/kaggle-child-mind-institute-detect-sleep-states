@@ -63,10 +63,10 @@ def add_feature(series_df: pl.DataFrame) -> pl.DataFrame:
             pl.col('anglez_rad').sin().alias('anglez_sin'),
             pl.col('anglez_rad').cos().alias('anglez_cos'),
              # 土曜日、日曜日、12/24、12/31を重み付け
-            pl.when(pl.col("timestamp").dt.weekday() == 5).then(1.5).else_(
-                pl.when(pl.col("timestamp").dt.weekday() == 6).then(1.5).else_(
-                    pl.when(pl.col("timestamp").dt.day() == 24).then(1.2).else_(
-                        pl.when(pl.col("timestamp").dt.day() == 31).then(1.2).else_(1.0)
+            pl.when(pl.col("timestamp").dt.weekday() == 5).then(1.5).otherwise(
+                pl.when(pl.col("timestamp").dt.weekday() == 6).then(1.5).otherwise(
+                    pl.when(pl.col("timestamp").dt.day() == 24).then(1.2).otherwise(
+                        pl.when(pl.col("timestamp").dt.day() == 31).then(1.2).otherwise(1.0)
                     )
                 )
             ),
